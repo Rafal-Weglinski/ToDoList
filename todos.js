@@ -1,14 +1,28 @@
 
 // Check of specific todos by clicking
 
-$("li").click(function(){
+$("ul").on("click", "li", function(){
     $(this).toggleClass("check-off");
 });
 
 // Click on x to delete todo
 
-$("span").click(function(event){
-    alert("clicked");
+$("ul").on("click", "span", function(event){
+    $(this).parent().fadeOut(500, function(){
+        // In this case $(this) relates to parents
+        $(this).remove()
+    });
     event.stopPropagation();
 });
+
+$("input").keypress(function(event){
+    if (event.which === 13 ){
+        // taking the text from input
+        var newToDo= $(this).val();
+        $(this).val("");
+        $("ul").append("<li><span><i class='fa fa-trash'></i> </span>"+ newToDo + "</li>");
+    }
+
+});
+
 
